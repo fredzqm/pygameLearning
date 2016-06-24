@@ -7,17 +7,39 @@ import pygame
 pygame.init()
 
 # create a screen of 500 * 500
-# pygame.display.set_mode((screenWidth, screenHeight))
 screen = pygame.display.set_mode((500, 500))
 
 #-------------------------
-# draw an circle onto the screen
+# CREATE GRAPHICS COMPONENTS (Surface) of the game
 #-------------------------
-# define color, an tuple of 3 number representing (Red, Green, Blue)
+# define color
+BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
-# pygame.draw.method(...) has many functions to draw on a screen
-# pygame.draw.circle(surfaceToBeDrawnOn, color, centerCordinate, radius)
-pygame.draw.circle(screen, WHITE, (20, 20), 20)
+img = pygame.Surface((40, 40))
+pygame.draw.circle(img, WHITE, (20, 20), 20)
 
-# ask pygame to display screen on the GUI
-pygame.display.flip()
+
+#-------------------------
+# Our Main Loop
+#-------------------------
+## Each time the loop is executed, one framed
+# 100 frames will be displayed with an interval of 100ms
+for i in range(100):
+    #-------------------------
+    # The graphics block
+    #-------------------------
+    ## all the drawing happen here
+    screen.fill(BLACK)
+
+    # copies surface img onto surface screen
+    # conpiedTo.blit(conpiedFrom, (leftUpCorner_x, leftUpCorner_y))
+    screen.blit(img, (20+i, 20+i))
+
+    #-------------------------
+    # display this frame and wait
+    #-------------------------
+    pygame.display.flip()
+    # ask pygame to display everythong on the GUI
+    pygame.time.wait(100)
+    # delay the time, so can see the Windows, controls the frame rate
+    
