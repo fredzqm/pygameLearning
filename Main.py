@@ -9,34 +9,44 @@ pygame.init()
 # create a screen of 500 * 500
 screen = pygame.display.set_mode((500, 500))
 
-#-------------------------
-# CREATE GRAPHICS COMPONENTS (Surface) of the game
-#-------------------------
-# define color
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-img = pygame.Surface((40, 40))
-pygame.draw.circle(img, WHITE, (20, 20), 20)
-
+import GameLogic
 
 #-------------------------
 # Our Main Loop
 #-------------------------
+## Your must have one and only one big while loop for your game
 ## Each time the loop is executed, one framed
-# 100 frames will be displayed with an interval of 100ms
-for i in range(100):
+while True:
+    #-------------------------
+    # Our event hanlding loop
+    #-------------------------
+    eventList = pygame.event.get()
+    # grab all events pygame recieved
+    for event in eventList:
+        if event.type == pygame.QUIT:
+            # if someone tries to close the Windows
+            exit()
+        # check for some key presses
+        if event.type == pygame.KEYDOWN:
+            print("Button " + str(event.key) + " pressed!")
+        elif event.type == pygame.KEYUP:
+            print("Button " + str(event.key) + " released!")
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+        	print("Mouse clicked at " + str(event.pos))
+    #-------------------------
+    # The main game logic block
+    #-------------------------
+    ## all the exciting interactive of objects happen in updateGame()
+    GameLogic.updateGame()
+
     #-------------------------
     # The graphics block
     #-------------------------
-    ## all the drawing happen here
-    screen.fill(BLACK)
-
-    # copies surface img onto surface screen
-    # conpiedTo.blit(conpiedFrom, (leftUpCorner_x, leftUpCorner_y))
-    screen.blit(img, (20+i, 20+i))
+    ## all the drawing happen in updateGame()
+    GameLogic.draw(screen)
 
     #-------------------------
-    # display this frame and wait
+    # display this frame and wait 
     #-------------------------
     pygame.display.flip()
     # ask pygame to display everythong on the GUI
