@@ -5,6 +5,7 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 ORANGE = (255, 153, 0)
 BLUE = (0, 0, 255)
+PURPLE = (255, 51, 153)
 
 # ------------------------------
 heroSprite = pygame.Surface((100, 70))
@@ -35,3 +36,37 @@ ballSpriteBLUE.set_colorkey(BLACK)
 
 # a simple animation of only three frame
 animation = [someLoadedImage, ballSpriteBLUE, ballSpriteOrange]
+
+
+# This loads an image as a surface. It takes name of the image file
+background = pygame.image.load("background.jpg")
+background = pygame.transform.scale(background, (500, 500))
+background = background.convert()
+
+
+# ------------------------------
+# on example of creating an animiation (a list of surface)
+# initialize the animiation as an empty list
+shiningAnimation = []
+# create an function that will append an customized frame to the shiningAnimation
+# you can pass anything into this function, even another surface
+def addFrameToAnimation(color, radius):
+    frame = pygame.Surface((40, 40))
+    frame.set_colorkey(BLACK)
+    pygame.draw.circle(frame, color, (20, 20), radius)
+    # append the created frame to the shiningAnimation
+    shiningAnimation.append(frame)
+# call this function each time for one frame of the shiningAnimation
+for i in range(1, 10):
+	addFrameToAnimation(BLUE, i)
+for i in range(10, 15):
+	addFrameToAnimation(PURPLE, i)
+for i in range(15, 20):
+	addFrameToAnimation(RED, i)
+for i in range(20, 14, -1):
+	addFrameToAnimation(RED, i)
+for i in range(14, 9, -1):
+	addFrameToAnimation(PURPLE, i)
+for i in range(9, 0, -1):
+	addFrameToAnimation(BLUE, i)
+
