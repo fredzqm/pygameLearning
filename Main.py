@@ -9,7 +9,10 @@ pygame.init()
 # create a screen of 500 * 500
 screen = pygame.display.set_mode((500, 500))
 
-import GameLogic
+from GameLogic import Game
+
+# acquire a game object
+game = Game()
 
 #-------------------------
 # Our Main Loop
@@ -28,25 +31,30 @@ while True:
             exit()
         # check for some key presses
         if event.type == pygame.KEYDOWN:
-            print("Button " + str(event.key) + " pressed!")
-        elif event.type == pygame.KEYUP:
-            print("Button " + str(event.key) + " released!")
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-        	print("Mouse clicked at " + str(event.pos))
+            # move the hero
+            if event.key == pygame.K_UP:
+                game.hero.y -= 6
+            elif event.key == pygame.K_DOWN:
+                game.hero.y += 6
+            elif event.key == pygame.K_LEFT:
+                game.hero.x -= 6
+            elif event.key == pygame.K_RIGHT:
+                game.hero.x += 6
+
     #-------------------------
     # The main game logic block
     #-------------------------
     ## all the exciting interactive of objects happen in updateGame()
-    GameLogic.updateGame()
+    game.updateGame()
 
     #-------------------------
     # The graphics block
     #-------------------------
     ## all the drawing happen in updateGame()
-    GameLogic.draw(screen)
+    game.draw(screen)
 
     #-------------------------
-    # display this frame and wait 
+    # display this frame and wait
     #-------------------------
     pygame.display.flip()
     # ask pygame to display everythong on the GUI
