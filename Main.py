@@ -2,14 +2,21 @@
 # initialize pygame
 #-------------------------
 import pygame
-
 # initialize pygame
 pygame.init()
 
 # create a screen of 500 * 500
 screen = pygame.display.set_mode((500, 500))
 
-from GameLogic import Game
+# <<ADVANCED>> If you want KEYDOWN event to fire continuously, when a key is held down
+# ============ give it two argument, both of them are interval of KEYDOWN event
+pygame.key.set_repeat(50, 50)
+
+#-------------------------
+# initialize the game
+#-------------------------
+# import the game class from GameLogic
+from GameLogic import Game, GLib
 
 # acquire a game object
 game = Game()
@@ -40,7 +47,15 @@ while True:
                 game.hero.x -= 6
             elif event.key == pygame.K_RIGHT:
                 game.hero.x += 6
-
+            # change the background color
+            elif event.key == pygame.K_o:
+                game.background = GLib.ORANGE
+            elif event.key == pygame.K_b:
+                game.background = GLib.BLACK
+            # add an random ball to the screen
+            elif event.key == pygame.K_a:
+                game.addAnRandomBall()
+                
     #-------------------------
     # The main game logic block
     #-------------------------
