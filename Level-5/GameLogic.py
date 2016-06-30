@@ -38,6 +38,9 @@ class Game:
         game.timer = 0
         # set the initial background of the game
         game.background = GLib.BLACK
+        # set the initial state of game to be "Normal"
+        game.state = "Normal"
+
         # put hero as an attribute of the game
         game.hero = Hero()
         game.ball = Object(250, 250, GLib.someLoadedImage)
@@ -46,11 +49,11 @@ class Game:
         game.objectsOnScreen = [game.hero, game.ball]
 
 
-    # updateInState() takes an current state of the game and return the next state
-    def updateInState(game, state):
+    # updateGame() is called before each frame is displayed
+    def updateGame(game):
         game.timer += 1
         # check what state the game is at
-        if state == "Normal":
+        if game.state == "Normal":
             # update the game before each frame of the state
             game.hero.update()
             # dectect collision of stars and hero using rectangle
@@ -61,11 +64,11 @@ class Game:
             # showAnimationOn() takes three argument, the object, the animation, and the frameNumber
             # the animation should be a list of surface representing each frame
             showAnimationOn(game.ball, GLib.animation, game.timer / 6)
-        elif state == "Pause":
+        elif game.state == "Pause":
             pass
         else:
-            raise Exception("Undefined game state " + str(state))
-        return state
+            raise Exception("Undefined game state " + str(game.state))
+        return game.state
 
     # an example of adding an object to the screen
     def addAnRandomBall(game):

@@ -68,15 +68,15 @@ while True:
         # click on the screen to toggle state
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x, y = event.pos
-            if state == "Normal":
-                state = "Pause"
+            if game.state == "Normal":
+                game.state = "Pause"
             else:
-                state = "Normal"
+                game.state = "Normal"
     #-------------------------
     # The main game logic block
     #-------------------------
     ## all the exciting interactive of objects happen in updateGame()
-    state = game.updateInState(state)
+    game.updateGame()
     # update both timer and stateTimer, if the state changed, clear the stateTimer
     
     
