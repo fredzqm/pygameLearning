@@ -3,30 +3,30 @@ import GraphicsLib as GLib
 
 # the minimum class for an object that can be displaced on the screen
 class ImageObject:
-    def __init__(ball, x, y, img):
-        ball.x = x
-        ball.y = y
-        ball.img = img
+    def __init__(self, x, y, img):
+        self.x = x
+        self.y = y
+        self.img = img
 
 
 class Game:
-    def __init__(game):
+    def __init__(self):
     	# put hero as an attribute of the game
-        game.hero = ImageObject(0, 0, GLib.heroSprite)
+        self.hero = ImageObject(0, 0, GLib.heroSprite)
     
 
     # updateGame() is called before each frame is displayed
-    def updateGame(game):
+    def updateGame(self):
         # update the position of hero based on its velocity
-        game.hero.x += 1
-        game.hero.y += 1
+        self.hero.x += 1
+        self.hero.y += 1
 
 
     # A method that does all the drawing for you.
-    def draw(game, screen):
+    def draw(self, screen):
         # clear the screen, or set up the background, 
         screen.fill(GLib.BLACK)
         # copy the image of hero to the screen at the cordinate of hero
-        screen.blit(game.hero.img, (game.hero.x, game.hero.y))
+        screen.blit(self.hero.img, (self.hero.x, self.hero.y))
 
 

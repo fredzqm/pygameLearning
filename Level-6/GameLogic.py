@@ -62,11 +62,6 @@ class Game:
         # put all objects that will be drawn on the screen in a list
         self.objectsOnScreen = [self.hero, self.ball]
 
-    def inState(self, lookFor):
-        # sometimes you might have small states within big state like "Normal-A", "Normal-B"
-        # inState() makes it easier to add those substate later on without breaking previous features
-        return self.state.startswith(lookFor)
-
     def switchState(self, newState):
         # configure the game when state swiched
         if newState == "Normal":
@@ -79,8 +74,7 @@ class Game:
         # reset the stateTime when switching to a new state
         self.stateTime = 0
         self.state = newState
-
-
+        
     # updateGame() is called before each frame is displayed
     def updateGame(self):
         # update both the time and state time
@@ -97,8 +91,7 @@ class Game:
             # showAnimationOn() takes three argument, the object, the animation, and the frameNumber
             # the animation should be a list of surface representing each frame
             # it returns whether a complete animation is shown
-            done = showAnimationOn(self.ball, GLib.shiningAnimation, self.stateTime)
-            if done:
+            if showAnimationOn(self.ball, GLib.shiningAnimation, self.stateTime):
                 self.switchState("Pause")
         elif self.state == "Pause":
             for s in self.stars:

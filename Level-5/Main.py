@@ -75,10 +75,8 @@ while True:
     #-------------------------
     # The main game logic block
     #-------------------------
-    ## all the exciting interactive of objects happen in updateGame()
+    # all the exciting interactive of objects happen in updateGame()
     game.updateGame()
-    # update both timer and stateTimer, if the state changed, clear the stateTimer
-    
     
     #-------------------------
     # The graphics block

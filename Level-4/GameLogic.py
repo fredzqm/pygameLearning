@@ -4,46 +4,46 @@ import random
 from Util import hasCollideRect
 
 # the minimum class for an object that can be displayed on the screen
-class Object:
-    def __init__(ball, x, y, img):
-        ball.x = x
-        ball.y = y
-        ball.img = img
+class ImageObject:
+    def __init__(self, x, y, img):
+        self.x = x
+        self.y = y
+        self.img = img
 
 
 class Game:
-    def __init__(game):
+    def __init__(self):
         # set the initial background of the game
-        game.background = GLib.BLACK
+        self.background = GLib.BLACK
         # put hero as an attribute of the game
-        game.hero = Object(0, 0, GLib.heroSprite)
-        game.stars = []
+        self.hero = ImageObject(0, 0, GLib.heroSprite)
+        self.stars = []
         # put all objects that will be drawn on the screen in a list
-        game.objectsOnScreen = [game.hero]
+        self.objectsOnScreen = [self.hero]
 
 
     # updateGame() is called before each frame is displayed
-    def updateGame(game):
+    def updateGame(self):
         # dectect collision of stars and hero using rectangle
-        for s in game.stars:
-            if hasCollideRect(game.hero, s):
-                game.stars.remove(s)
-                game.objectsOnScreen.remove(s)
+        for s in self.stars:
+            if hasCollideRect(self.hero, s):
+                self.stars.remove(s)
+                self.objectsOnScreen.remove(s)
                 
 
     # an example of adding an object to the screen
-    def addAnRandomBall(game):
-        addedStar = Object(random.randint(0, 500),random.randint(0, 500), GLib.someLoadedImage)
-        game.stars.append(addedStar)
-        game.objectsOnScreen.append(addedStar)
+    def addAnRandomBall(self):
+        addedStar = ImageObject(random.randint(0, 500),random.randint(0, 500), GLib.someLoadedImage)
+        self.stars.append(addedStar)
+        self.objectsOnScreen.append(addedStar)
 
 
     # A method that does all the drawing for you.
-    def draw(game, screen):
+    def draw(self, screen):
         # clear the screen, or set up the background, 
-        screen.fill(game.background)
+        screen.fill(self.background)
 
-        for obj in game.objectsOnScreen:
+        for obj in self.objectsOnScreen:
             screen.blit(obj.img, (obj.x, obj.y))
 
 

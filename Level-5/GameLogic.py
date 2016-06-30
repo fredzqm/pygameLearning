@@ -4,85 +4,86 @@ import random
 from Util import showAnimationOn, hasCollideRect
 
 # the minimum class for an object that can be displayed on the screen
-class Object:
-    def __init__(ball, x, y, img):
-        ball.x = x
-        ball.y = y
-        ball.img = img
+class ImageObject:
+    def __init__(self, x, y, img):
+        self.x = x
+        self.y = y
+        self.img = img
 
 # a great example of an object that can move on the screen
 class Hero:
-    def __init__(hero):
+    def __init__(self):
         # ------------------------
         # [REQUIRED PART] for any class that will be drawn on the screen
         # Grab the surface that Graphics people worked very hard on
-        hero.img = GLib.heroSprite
+        self.img = GLib.heroSprite
         # Set the initial coordinate of this object
-        hero.x = 0
-        hero.y = 0
+        self.x = 0
+        self.y = 0
         # ------------------------
         # TODO: add more properties to Hero based on your game
-        hero.vx = 0
-        hero.vy = 0
+        self.vx = 0
+        self.vy = 0
 
     # update the position of hero based on its speed
-    def update(hero):
-        hero.x += hero.vx
-        hero.y += hero.vy
+    def update(self):
+        self.x += self.vx
+        self.y += self.vy
 
 
 class Game:
-    def __init__(game):
-        # initialize the timer to zero.
-        # game.timer is a clock that record how many ticks has elapsed
-        game.timer = 0
+    def __init__(self):
+        # initialize the time to zero.
+        # self.time is a clock that record how many ticks has elapsed
+        self.time = 0
         # set the initial background of the game
-        game.background = GLib.BLACK
+        self.background = GLib.BLACK
         # set the initial state of game to be "Normal"
-        game.state = "Normal"
+        self.state = "Normal"
 
         # put hero as an attribute of the game
-        game.hero = Hero()
-        game.ball = Object(250, 250, GLib.someLoadedImage)
-        game.stars = []
+        self.hero = Hero()
+        self.ball = ImageObject(250, 250, GLib.someLoadedImage)
+        self.stars = []
         # put all objects that will be drawn on the screen in a list
-        game.objectsOnScreen = [game.hero, game.ball]
+        self.objectsOnScreen = [self.hero, self.ball]
 
 
     # updateGame() is called before each frame is displayed
-    def updateGame(game):
-        game.timer += 1
+    def updateGame(self):
+        # update the time
+        self.time += 1
         # check what state the game is at
-        if game.state == "Normal":
+        if self.state == "Normal":
             # update the game before each frame of the state
-            game.hero.update()
+            self.hero.update()
             # dectect collision of stars and hero using rectangle
-            for s in game.stars:
-                if hasCollideRect(game.hero, s):
-                    game.stars.remove(s)
-                    game.objectsOnScreen.remove(s)
+            for s in self.stars:
+                if hasCollideRect(self.hero, s):
+                    self.stars.remove(s)
+                    self.objectsOnScreen.remove(s)
             # showAnimationOn() takes three argument, the object, the animation, and the frameNumber
             # the animation should be a list of surface representing each frame
-            showAnimationOn(game.ball, GLib.animation, game.timer / 6)
-        elif game.state == "Pause":
+            showAnimationOn(self.ball, GLib.animation, self.time / 6)
+        elif self.state == "Pause":
             pass
         else:
-            raise Exception("Undefined game state " + str(game.state))
-        return game.state
+            raise Exception("Undefined game state " + str(self.state))
+        return self.state
 
     # an example of adding an object to the screen
-    def addAnRandomBall(game):
-        addedStar = Object(random.randint(0, 500),random.randint(0, 500), GLib.someLoadedImage)
-        game.stars.append(addedStar)
-        game.objectsOnScreen.append(addedStar)
+    def addAnRandomBall(self):
+        addedStar = ImageObject(random.randint(0, 500),random.randint(0, 500), GLib.someLoadedImage)
+        self.stars.append(addedStar)
+        self.objectsOnScreen.append(addedStar)
 
 
     # A method that does all the drawing for you.
-    def draw(game, screen):
+    def draw(self, screen):
         # clear the screen, or set up the background, 
-        screen.fill(game.background)
+        screen.fill(self.background)
 
-        for obj in game.objectsOnScreen:
+        for obj in self.objectsOnScreen:
             screen.blit(obj.img, (obj.x, obj.y))
 
 
