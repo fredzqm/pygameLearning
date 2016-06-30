@@ -52,23 +52,40 @@ class Game:
         game.timer = game.stateTimer = 0
         # set the initial background of the game
         game.background = GLib.background
+        # set the initial state of game to be "Normal"
+        game.state = "Normal"
+        
         # put hero as an attribute of the game
         game.hero = Hero()
         game.ball = Object(250, 250, GLib.someLoadedImage)
         game.stars = []
         # put all objects that will be drawn on the screen in a list
-        game.objectsOnScreen = []
+        game.objectsOnScreen = [game.hero, game.ball]
+
+    def inState(game, checkedFor):
+        return game.state == checkedFor 
+
+    def switchState(game, newState):
+        # configure the game when state swiched
+        if newState == "Normal":
+            game.background = GLib.background
+            game.objectsOnScreen = [game.hero, game.ball]
+        elif newState == "Pause":
+            game.background = GLib.BLACK
+            game.objectsOnScreen = [game.hero, game.stars]
+        
+        # reset the stateTimer when switching to a new state
+        game.stateTimer = 0
+        game.state = newState
 
 
-    # updateInState() takes an current state of the game and return the next state
-    def updateInState(game, state):
+    # updateGame() is called before each frame is displayed
+    def updateGame(game):
+        # update both the timer and state timer
+        game.timer += 1
+        game.stateTimer += 1
         # check what state the game is at
-        if state == "Normal":
-            # configure when first entered this state
-            if game.stateTimer == 0:
-                game.background = GLib.background
-                game.objectsOnScreen = [game.hero, game.ball]
-            
+        if game.state == "Normal":
             # update the game before each frame of the state
             game.hero.update()
             # dectect collision of stars and hero using rectangle
@@ -80,21 +97,14 @@ class Game:
             # it returns whether a complete animation is shown
             done = showAnimationOn(game.ball, GLib.shiningAnimation, game.stateTimer)
             if done:
-                return "Pause"
-
-        elif state == "Pause":
-            # configure when first entered this state
-            if game.stateTimer == 0:
-                game.background = GLib.BLACK
-                game.objectsOnScreen = [game.hero, game.stars]
-
+                game.switchState("Pause")
+        elif game.state == "Pause":
             for s in game.stars:
                 s.update(game.timer)
             if game.stateTimer > 30:
-                return "Normal"
+                game.switchState("Normal")
         else:
             raise Exception("Undefined game state " + str(state))
-        return state
 
     # an example of adding an object to the screen
     def addAnRandomBall(game):

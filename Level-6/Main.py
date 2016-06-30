@@ -21,9 +21,6 @@ from GameLogic import Game, GLib
 # acquire a game object
 game = Game()
 
-# Let "Normal" be the initial state
-preState = state = "Normal"
-
 #-------------------------
 # Our Main Loop
 #-------------------------
@@ -43,16 +40,16 @@ while True:
         if event.type == pygame.KEYDOWN:
             # in "Normal" state, control the hero velocity
             if event.key == pygame.K_UP:
-                if state == "Normal":
+                if game.inState("Normal"):
                     game.hero.vy -= 3
             elif event.key == pygame.K_DOWN:
-                if state == "Normal":
+                if game.inState("Normal"):
                     game.hero.vy += 3
             elif event.key == pygame.K_LEFT:
-                if state == "Normal":
+                if game.inState("Normal"):
                     game.hero.vx -= 3
             elif event.key == pygame.K_RIGHT:
-                if state == "Normal":
+                if game.inState("Normal"):
                     game.hero.vx += 3
             # change the background color
             elif event.key == pygame.K_o:
@@ -61,7 +58,7 @@ while True:
                 game.background = GLib.BLACK
             # in "Pause" state, add an random ball to the screen
             elif event.key == pygame.K_a:
-                if state == "Pause":
+                if game.inState("Pause"):
                     game.addAnRandomBall()
             # reset the position or velocity of hero
             elif event.key == pygame.K_p:
@@ -73,24 +70,16 @@ while True:
         # click on the screen to toggle state
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x, y = event.pos
-            if state == "Normal":
-                state = "Pause"
+            if game.inState("Normal"):
+                game.switchState("Pause")
             else:
-                state = "Normal"
+                game.switchState("Normal")
             
     #-------------------------
     # The main game logic block
     #-------------------------
-    # check if either updateInState(...) or user input altered state
-    # initialized stateTimer to 0 to signal the begining of a new state
-    if state != preState:
-        game.stateTimer = 0
-    preState = state
-    ## all the exciting interactive of objects happen in updateGame()
-    state = game.updateInState(state)
-    # update both timer and stateTimer, if the state changed, clear the stateTimer
-    game.timer += 1
-    game.stateTimer += 1
+    # all the exciting interactive of objects happen in updateGame()
+    game.updateGame()
     
     #-------------------------
     # The graphics block
