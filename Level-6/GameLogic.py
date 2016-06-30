@@ -4,38 +4,38 @@ import random
 from Util import *
 
 # the minimum class for an object that can be displayed on the screen
-class Object:
-    def __init__(ball, x, y, img):
-        ball.x = x
-        ball.y = y
-        ball.img = img
+class ImageObject:
+    def __init__(self, x, y, img):
+        self.x = x
+        self.y = y
+        self.img = img
 
 # a great example of an object that can move on the screen
 class Hero:
-    def __init__(hero):
+    def __init__(self):
         # -- ----------------------
         # [REQUIRED PART] for any class that will be drawn on the screen
         # Grab the surface that Graphics people worked very hard on
-        hero.img = GLib.heroSprite
+        self.img = GLib.heroSprite
         # Set the initial coordinate of this object
-        hero.x = 0
-        hero.y = 0
+        self.x = 0
+        self.y = 0
         # ------------------------
-        hero.vx = 0
-        hero.vy = 0
+        self.vx = 0
+        self.vy = 0
 
     # update the position of hero based on its speed
-    def update(hero):
-        hero.x += hero.vx
-        hero.y += hero.vy
-        bounceIn(hero, 0, 0, 500, 500)
+    def update(self):
+        self.x += self.vx
+        self.y += self.vy
+        bounceIn(self, 0, 0, 500, 500)
 
 # a greate example for an object that does animation
 class Star:
-    def __init__(star, x, y, time):
-        star.x = x
-        star.y = y
-        star.birthTime = time
+    def __init__(self, x, y, time):
+        self.x = x
+        self.y = y
+        self.birthTime = time
 
     def update(self, time):
         self.x += 1
@@ -45,90 +45,89 @@ class Star:
 
 
 class Game:
-    def __init__(game):
-        # initialize the timer and state timer to zero.
-        ## game.timer is a clock that record how many ticks has elapsed
-        ## game.stateTimer is a clock that record how many ticks has elapsed since switched to this state      
-        game.timer = game.stateTimer = 0
+    def __init__(self):
+        # initialize the time and state time to zero.
+        ## self.time is a clock that record how many ticks has elapsed
+        ## self.stateTime is a clock that record how many ticks has elapsed since switched to this state      
+        self.time = self.stateTime = 0
         # set the initial background of the game
-        game.background = GLib.background
+        self.background = GLib.background
         # set the initial state of game to be "Normal"
-        game.state = "Normal"
+        self.state = "Normal"
         
         # put hero as an attribute of the game
-        game.hero = Hero()
-        game.ball = Object(250, 250, GLib.someLoadedImage)
-        game.stars = []
+        self.hero = Hero()
+        self.ball = ImageObject(250, 250, GLib.someLoadedImage)
+        self.stars = []
         # put all objects that will be drawn on the screen in a list
-        game.objectsOnScreen = [game.hero, game.ball]
+        self.objectsOnScreen = [self.hero, self.ball]
 
-    def inState(game, lookFor):
+    def inState(self, lookFor):
         # sometimes you might have small states within big state like "Normal-A", "Normal-B"
         # inState() makes it easier to add those substate later on without breaking previous features
-        return game.state.startswith(lookFor)
+        return self.state.startswith(lookFor)
 
-    def switchState(game, newState):
+    def switchState(self, newState):
         # configure the game when state swiched
         if newState == "Normal":
-            game.background = GLib.background
-            game.objectsOnScreen = [game.hero, game.ball]
+            self.background = GLib.background
+            self.objectsOnScreen = [self.hero, self.ball]
         elif newState == "Pause":
-            game.background = GLib.BLACK
-            game.objectsOnScreen = [game.hero, game.stars]
+            self.background = GLib.BLACK
+            self.objectsOnScreen = [self.hero, self.stars]
         
-        # reset the stateTimer when switching to a new state
-        game.stateTimer = 0
-        game.state = newState
+        # reset the stateTime when switching to a new state
+        self.stateTime = 0
+        self.state = newState
 
 
     # updateGame() is called before each frame is displayed
-    def updateGame(game):
-        # update both the timer and state timer
-        game.timer += 1
-        game.stateTimer += 1
+    def updateGame(self):
+        # update both the time and state time
+        self.time += 1
+        self.stateTime += 1
         # check what state the game is at
-        if game.state == "Normal":
+        if self.state == "Normal":
             # update the game before each frame of the state
-            game.hero.update()
+            self.hero.update()
             # dectect collision of stars and hero using rectangle
-            for s in game.stars:
-                if hasCollideRect(game.hero, s):
-                    game.stars.remove(s)
+            for s in self.stars:
+                if hasCollideRect(self.hero, s):
+                    self.stars.remove(s)
             # showAnimationOn() takes three argument, the object, the animation, and the frameNumber
             # the animation should be a list of surface representing each frame
             # it returns whether a complete animation is shown
-            done = showAnimationOn(game.ball, GLib.shiningAnimation, game.stateTimer)
+            done = showAnimationOn(self.ball, GLib.shiningAnimation, self.stateTime)
             if done:
-                game.switchState("Pause")
-        elif game.state == "Pause":
-            for s in game.stars:
-                s.update(game.timer)
-            if game.stateTimer > 30:
-                game.switchState("Normal")
+                self.switchState("Pause")
+        elif self.state == "Pause":
+            for s in self.stars:
+                s.update(self.time)
+            if self.stateTime > 30:
+                self.switchState("Normal")
         else:
             raise Exception("Undefined game state " + str(state))
 
     # an example of adding an object to the screen
-    def addAnRandomBall(game):
-        addedStar = Star(random.randint(0, 500),random.randint(0, 500), game.timer)
-        game.stars.append(addedStar)
-
+    def addAnRandomBall(self):
+        addedStar = Star(random.randint(0, 500),random.randint(0, 500), self.time)
+        self.stars.append(addedStar)
 
     # A method that does all the drawing for you.
-    def draw(game, screen):
+    def draw(self, screen):
         # set the background of the game
-        if type(game.background) is tuple:
-            screen.fill(game.background)
+        if type(self.background) is tuple:
+            screen.fill(self.background)
         else:
-            screen.blit(game.background, (0, 0))
+            screen.blit(self.background, (0, 0))
 
-        # the magic that draw all the objects stored in objectsOnScreen onto the screen
+        # the magic that draw all the objects in objectsOnScreen onto the screen
         def drawOnScreen(objls):
             for obj in objls:
                 if type(obj) is list:
                     drawOnScreen(obj)
                 else:
                     screen.blit(obj.img, (obj.x, obj.y))
-        drawOnScreen(game.objectsOnScreen)     
+        drawOnScreen(self.objectsOnScreen)     
 
 
