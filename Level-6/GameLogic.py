@@ -13,7 +13,7 @@ class Object:
 # a great example of an object that can move on the screen
 class Hero:
     def __init__(hero):
-        # ------------------------
+        # -- ----------------------
         # [REQUIRED PART] for any class that will be drawn on the screen
         # Grab the surface that Graphics people worked very hard on
         hero.img = GLib.heroSprite
@@ -62,8 +62,10 @@ class Game:
         # put all objects that will be drawn on the screen in a list
         game.objectsOnScreen = [game.hero, game.ball]
 
-    def inState(game, checkedFor):
-        return game.state == checkedFor 
+    def inState(game, lookFor):
+        # sometimes you might have small states within big state like "Normal-A", "Normal-B"
+        # inState() makes it easier to add those substate later on without breaking previous features
+        return game.state.startswith(lookFor)
 
     def switchState(game, newState):
         # configure the game when state swiched
@@ -121,13 +123,12 @@ class Game:
             screen.blit(game.background, (0, 0))
 
         # the magic that draw all the objects stored in objectsOnScreen onto the screen
-        stack = [game.objectsOnScreen]
-        while len(stack) > 0:
-            objectsLs = stack.pop()
-            for obj in objectsLs:
+        def drawOnScreen(objls):
+            for obj in objls:
                 if type(obj) is list:
-                    stack.append(obj)
+                    drawOnScreen(obj)
                 else:
                     screen.blit(obj.img, (obj.x, obj.y))
+        drawOnScreen(game.objectsOnScreen)     
 
 
