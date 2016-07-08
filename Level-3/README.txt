@@ -3,43 +3,45 @@ Use object-oriented programming
 =================================================================================
 Lesson
 =================================================================================
-1. Use class to represent an object on the screen
-	Notice that any object on screen needs two information
-		how it looks like (img  / its surface)
-		where it locates  (x, y / its coordinate)
+1. Use self.objectsOnScreen to control objects on screen
+	We always use blit to copy an image sprite to the screen.
+		screen.blit(img, (x, y))
+	Notice that blit needs three data: img, x and y
+	We can store them as attributes of the objects:
+		self.img  				its surface				how it looks like
+		self.x & self.y			its coordinate			where it locates
 
-	In object-oriented programming, we store those information closely related to an object as its attribute.
-	We use class ImageObject that contains the minimun attributes that are required to be put on the scree.
-		To create an instance of ImageObject, you need to pass in the initial value of those attributes					hero = ImageObject(x, y, img)
-		To modify the attribute of this instance, you can assign to those attributes									hero.x = x_position
+	With this structure, we can make a list of everything on the screen 			self.objectsOnScreen = [ obj1 , obj2 ]
+	Then use a simple and elegant loop to blit all of them to the screen 			for obj in self.objectsOnScreen:
+																			            screen.blit(obj.img, (obj.x, obj.y))
 
-	You can create your own class to represent any customized objects on the screen, as long as them have three required attributes (x, y, img)
-	As the game grows larger, you can even separate those classes into several different files.
+    If you want to add an object to the screen, just append it to the list 			self.objectsOnScreen.append(added_obj)
+    If you want to remove an object to the screen, just remove it to the list 		self.objectsOnScreen.remove(added_obj)
 
-2. Use class to represent the whole game.
-	All parts of the state of the game should be attributes of the game.
-		As in the example, hero is a part of the game, so we stores it in an attribute of game -- self.hero
+2. Create class for object on the screen
+	As discussed before, any objects with three required attributes (x, y, img) are qualified to appear on the screen
+	You can create your own class to represent any customized objects on the screen, as long as it has required attributes -- x, y, img
+	For simple static objects, you can just take advantage of ImageObject, the simplest class that satisfied this requirement.
+		To create an instance of ImageObject				obj = ImageObject(x, y, img)
 
-	Game class has three important methods:
-		__init__(self):	 		
-			What is it?			This is the constructor of the game.
-			Where we use it?	Just above the main while loop, we creates an instance of the game
-			What goes in there?	The initialization of the Game, such as initial game state, initial hero position
-								It grows fast as you add more features to your game
+	In fact, pygame has an Sprite library built on this idea. Feel free to read their documentation and use it.
 
-		updateGame(self):		
-			What is it?			This is the game logic of the game.
-			Where we use it?	We call this method before we update each frame inside main while loop
-			What goes in there? Dynamic game logic, such as moving, animiation, collision, state transition
-								It grows really fast as you add more complex logic
 
-		draw(self, screen):		
-			What is it?			This is the graphics block of the game
-			Where we use it?	We call this method after we update the state of the game
-			What goes in there? Copying images of objects to the screen
+3. Write Utility function to save time
+	There are many similar features in the game, such as collisions, bouncing.
+	To make main logic shorter and cleaner, we often write utitility function to perform those common operation.
+
+	As you put more features into your game, Gamelogic.py can grow really large, you can also catergorize similar classes into anothre file.
+
+
+4. load images
+	Images can be loaded directly into pygame as surfaces.
+	Check out the examples in GraphicsUtil.py
 
 
 =================================================================================
 Challenge
 =================================================================================
-1. use ImageObject to add static  
+1. make the randomly added balls move at some speed
+2. make those balls bounce at the border
+	Hint: there is a nice function in Util.py --- bounceIn(obj, x1, y1, x2, y2)

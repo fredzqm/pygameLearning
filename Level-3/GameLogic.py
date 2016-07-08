@@ -26,6 +26,8 @@ class Game:
     def updateGame(self):
         # dectect collision of stars and hero using rectangle
         for s in self.stars:
+            # imported from util.py
+            # hasCollideRect(a, b) checks whether a and b collides based on their rectangles
             if hasCollideRect(self.hero, s):
                 self.stars.remove(s)
                 self.objectsOnScreen.remove(s)

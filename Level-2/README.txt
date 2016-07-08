@@ -11,6 +11,8 @@ Lesson
 
 2. Separate program in multiple parts and files
 	In a team work, it is a very good practice to keep different part of your game in different file.
+	So it is easier for one person to work on the game logic while another person produces nice graphics.
+	
 	Our pygame program contains three parts:
 		Main.py (I/O)
 			It contains the big main loop, a very structured loop that is run for each frame
@@ -30,7 +32,8 @@ Lesson
 			All the pre-drawn surfaces of sprites should be here.
 			GameLogic can then import these sprites for draw(screen)
 
-3. How to process user input
+
+4. How to process user input
 	Pygame catpure all sort of actions of user as the form of events.
 	To make your game interactive, you should handle those events in an event loop:
 		1. Aquire a list of events that pygame recieved												eventList = pygame.event.get()
@@ -61,6 +64,7 @@ Lesson
 			Both KEYDOWN and KEYUP has attribute called key, which encodes a key on your keyboard.
 				You can look them up on http://www.pygame.org/docs/ref/key.html
 			
+
 
 =================================================================================
 Challenge
