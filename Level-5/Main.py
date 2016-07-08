@@ -19,7 +19,7 @@ pygame.key.set_repeat(50, 50)
 # initialize the game
 #-------------------------
 # import the game class from GameLogic
-from GameLogic import Game, GLib
+from GameLogic import Game, Graph
 
 # acquire a game object
 game = Game()
@@ -55,9 +55,9 @@ while True:
                 game.hero.vx += 0.5
             # change the background color
             elif event.key == pygame.K_o:
-                game.background = GLib.ORANGE
+                game.background = Graph.ORANGE
             elif event.key == pygame.K_b:
-                game.background = GLib.BLACK
+                game.background = Graph.BLACK
             # add an random ball to the screen
             elif event.key == pygame.K_a:
                 game.addAnRandomBall()

@@ -26,7 +26,7 @@ Lesson
 				updateGame()		all the complex logic of the game is here.
 				draw(screen)		all the drawing is happened here
 
-		GraphicsLib.py
+		GraphicsUtil.py
 			All the pre-drawn surfaces of sprites should be here.
 			GameLogic can then import these sprites for draw(screen)
 

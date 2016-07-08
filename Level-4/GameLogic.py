@@ -1,5 +1,5 @@
 import pygame
-import GraphicsLib as GLib
+import GraphicsUtil as Graph
 import random
 from Util import hasCollideRect
 
@@ -14,9 +14,9 @@ class ImageObject:
 class Game:
     def __init__(self):
         # set the initial background of the game
-        self.background = GLib.BLACK
+        self.background = Graph.BLACK
         # put hero as an attribute of the game
-        self.hero = ImageObject(0, 0, GLib.heroSprite)
+        self.hero = ImageObject(0, 0, Graph.heroSprite)
         self.stars = []
         # put all objects that will be drawn on the screen in a list
         self.objectsOnScreen = [self.hero]
@@ -33,7 +33,7 @@ class Game:
 
     # an example of adding an object to the screen
     def addAnRandomBall(self):
-        addedStar = ImageObject(random.randint(0, 500),random.randint(0, 500), GLib.someLoadedImage)
+        addedStar = ImageObject(random.randint(0, 500),random.randint(0, 500), Graph.someLoadedImage)
         self.stars.append(addedStar)
         self.objectsOnScreen.append(addedStar)
 

@@ -1,5 +1,5 @@
 import pygame
-import GraphicsLib as GLib
+import GraphicsUtil as Graph
 
 # the minimum class for an object that can be displaced on the screen
 class ImageObject:
@@ -12,7 +12,7 @@ class ImageObject:
 class Game:
     def __init__(self):
     	# put hero as an attribute of the game
-        self.hero = ImageObject(0, 0, GLib.heroSprite)
+        self.hero = ImageObject(0, 0, Graph.heroSprite)
     
 
     # updateGame() is called before each frame is displayed
@@ -25,7 +25,7 @@ class Game:
     # A method that does all the drawing for you.
     def draw(self, screen):
         # clear the screen, or set up the background, 
-        screen.fill(GLib.BLACK)
+        screen.fill(Graph.BLACK)
         # copy the image of hero to the screen at the cordinate of hero
         screen.blit(self.hero.img, (self.hero.x, self.hero.y))
 

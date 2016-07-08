@@ -1,5 +1,5 @@
 import pygame
-import GraphicsLib as GLib
+import GraphicsUtil as Graph
 import random
 from Util import *
 
@@ -20,7 +20,7 @@ class ImageObject:
 class Hero(ImageObject):
     def __init__(self):
         # call the initializer of its super class
-        super().__init__(0, 0, GLib.heroSprite)
+        super().__init__(0, 0, Graph.heroSprite)
         # ------------------------
         self.vx = 0
         self.vy = 0
@@ -41,7 +41,7 @@ class Star:
     def update(self, time):
         self.x += 1
         self.y += 1
-        showAnimationOn(self, GLib.shiningAnimation, (time - self.birthTime) / 2)
+        showAnimationOn(self, Graph.shiningAnimation, (time - self.birthTime) / 2)
         wrapAroundIn(self, 20, 20, 480, 480)
 
 
@@ -52,13 +52,13 @@ class Game:
         ## self.stateTime is a clock that record how many ticks has elapsed since switched to this state      
         self.time = self.stateTime = 0
         # set the initial background of the game
-        self.background = GLib.background
+        self.background = Graph.background
         # set the initial state of game to be "Normal"
         self.state = "Normal"
         
         # put hero as an attribute of the game
         self.hero = Hero()
-        self.ball = ImageObject(250, 250, GLib.someLoadedImage)
+        self.ball = ImageObject(250, 250, Graph.someLoadedImage)
         self.stars = []
         # put all objects that will be drawn on the screen in a list
         self.objectsOnScreen = [self.hero, self.ball]
@@ -78,7 +78,7 @@ class Game:
                     self.stars.remove(s)
             # showAnimationOn() takes three argument, the object, the animation, and the frameNumber
             # it returns whether a complete animation is shown
-            if showAnimationOn(self.ball, GLib.shiningAnimation, self.stateTime / 5):
+            if showAnimationOn(self.ball, Graph.shiningAnimation, self.stateTime / 5):
                 self.switchState("Pause")
         elif self.state == "Pause":
             for s in self.stars:
@@ -91,10 +91,10 @@ class Game:
     def switchState(self, newState):
         # configure the game when state swiched
         if newState == "Normal":
-            self.background = GLib.background
+            self.background = Graph.background
             self.objectsOnScreen = [self.hero, self.ball]
         elif newState == "Pause":
-            self.background = GLib.BLACK
+            self.background = Graph.BLACK
             self.objectsOnScreen = [self.hero, self.stars]
         
         # reset the stateTime when switching to a new state
