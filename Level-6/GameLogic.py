@@ -91,12 +91,12 @@ class Game:
             # showAnimationOn() takes three argument, the object, the animation, and the frameNumber
             # the animation should be a list of surface representing each frame
             # it returns whether a complete animation is shown
-            if showAnimationOn(self.ball, GLib.shiningAnimation, self.stateTime):
+            if showAnimationOn(self.ball, GLib.shiningAnimation, self.stateTime / 5):
                 self.switchState("Pause")
         elif self.state == "Pause":
             for s in self.stars:
                 s.update(self.time)
-            if self.stateTime > 30:
+            if self.stateTime > 200:
                 self.switchState("Normal")
         else:
             raise Exception("Undefined game state " + str(state))

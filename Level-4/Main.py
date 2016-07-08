@@ -5,6 +5,9 @@ import pygame
 # initialize pygame
 pygame.init()
 
+# initialize a clock for the game, so you can control the framerate
+clock = pygame.time.Clock()
+
 # create a screen of 500 * 500
 screen = pygame.display.set_mode((500, 500))
 
@@ -40,13 +43,13 @@ while True:
         if event.type == pygame.KEYDOWN:
             # move the hero
             if event.key == pygame.K_UP:
-                game.hero.y -= 10
+                game.hero.y -= 5
             elif event.key == pygame.K_DOWN:
-                game.hero.y += 10
+                game.hero.y += 5
             elif event.key == pygame.K_LEFT:
-                game.hero.x -= 10
+                game.hero.x -= 5
             elif event.key == pygame.K_RIGHT:
-                game.hero.x += 10
+                game.hero.x += 5
             # change the background color
             elif event.key == pygame.K_o:
                 game.background = GLib.ORANGE
@@ -73,6 +76,6 @@ while True:
     #-------------------------
     pygame.display.flip()
     # ask pygame to display everythong on the GUI
-    pygame.time.wait(100)
-    # delay the time, so can see the Windows, controls the frame rate
-    
+        
+    clock.tick(60)
+    # set the framerate of the game to 60fps, i.e. 60 updates in one second

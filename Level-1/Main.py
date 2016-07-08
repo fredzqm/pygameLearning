@@ -2,9 +2,11 @@
 # initialize pygame
 #-------------------------
 import pygame
-
 # initialize pygame
 pygame.init()
+
+# initialize a clock for the game, so you can control the framerate
+clock = pygame.time.Clock()
 
 # create a screen of 500 * 500
 screen = pygame.display.set_mode((500, 500))
@@ -41,6 +43,6 @@ for i in range(100):
     pygame.display.flip()
     # ask pygame to display everything on the GUI
     
-    pygame.time.wait(100)
-    # delay the time, so can see the Windows, controls the frame rate
+    clock.tick(60)
+    # set the framerate of the game to 60fps, i.e. 60 updates in one second
     

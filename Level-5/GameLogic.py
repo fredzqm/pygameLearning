@@ -64,7 +64,7 @@ class Game:
                     self.objectsOnScreen.remove(s)
             # showAnimationOn() takes three argument, the object, the animation, and the frameNumber
             # the animation should be a list of surface representing each frame
-            showAnimationOn(self.ball, GLib.animation, self.time / 6)
+            showAnimationOn(self.ball, GLib.animation, self.time / 20)
         elif self.state == "Pause":
             pass
         else:
