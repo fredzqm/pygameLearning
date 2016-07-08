@@ -35,13 +35,13 @@ while True:
         if event.type == pygame.KEYDOWN:
             # move the hero
             if event.key == pygame.K_UP:
-                game.hero.y -= 5
+                game.hero.y -= 10
             elif event.key == pygame.K_DOWN:
-                game.hero.y += 5
+                game.hero.y += 10
             elif event.key == pygame.K_LEFT:
-                game.hero.x -= 5
+                game.hero.x -= 10
             elif event.key == pygame.K_RIGHT:
-                game.hero.x += 5
+                game.hero.x += 10
 
     #-------------------------
     # The main game logic block
