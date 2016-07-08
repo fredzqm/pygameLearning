@@ -70,7 +70,7 @@ while True:
                 game.hero.vy = 0
         # click on the screen to toggle state
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            x, y = event.pos
+            # toggle normal and puase state
             if game.state == "Normal":
                 game.state = "Pause"
             else:
