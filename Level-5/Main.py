@@ -1,4 +1,4 @@
-    #-------------------------
+#-------------------------
 # initialize pygame
 #-------------------------
 import pygame
@@ -24,9 +24,6 @@ from GameLogic import Game, Graph
 # acquire a game object
 game = Game()
 
-# Let "Normal" be the initial state
-state = "Normal"
-
 #-------------------------
 # Our Main Loop
 #-------------------------
@@ -44,23 +41,28 @@ while True:
             exit()
         # check for some key presses
         if event.type == pygame.KEYDOWN:
-            # control the hero velocity
+            # in "Normal" state, control the hero velocity
             if event.key == pygame.K_UP:
-                game.hero.vy -= 0.5
+                if game.state == "Normal":
+                    game.hero.vy -= 0.5
             elif event.key == pygame.K_DOWN:
-                game.hero.vy += 0.5
+                if game.state == "Normal":
+                    game.hero.vy += 0.5
             elif event.key == pygame.K_LEFT:
-                game.hero.vx -= 0.5
+                if game.state == "Normal":
+                    game.hero.vx -= 0.5
             elif event.key == pygame.K_RIGHT:
-                game.hero.vx += 0.5
+                if game.state == "Normal":
+                    game.hero.vx += 0.5
             # change the background color
             elif event.key == pygame.K_o:
                 game.background = Graph.ORANGE
             elif event.key == pygame.K_b:
                 game.background = Graph.BLACK
-            # add an random ball to the screen
+            # in "Pause" state, add an random ball to the screen
             elif event.key == pygame.K_a:
-                game.addAnRandomBall()
+                if game.state == "Pause":
+                    game.addAnRandomBall()
             # reset the position or velocity of hero
             elif event.key == pygame.K_p:
                 game.hero.x = 200
@@ -72,9 +74,10 @@ while True:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x, y = event.pos
             if game.state == "Normal":
-                game.state = "Pause"
+                game.switchState("Pause")
             else:
-                game.state = "Normal"
+                game.switchState("Normal")
+            
     #-------------------------
     # The main game logic block
     #-------------------------

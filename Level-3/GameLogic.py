@@ -1,7 +1,9 @@
 import pygame
 import GraphicsUtil as Graph
+import random
+from Util import hasCollideRect
 
-# the minimum class for an object that can be displaced on the screen
+# the minimum class for an object that can be displayed on the screen
 class ImageObject:
     def __init__(self, x, y, img):
         self.x = x
@@ -11,22 +13,37 @@ class ImageObject:
 
 class Game:
     def __init__(self):
-    	# put hero as an attribute of the game
+        # set the initial background of the game
+        self.background = Graph.BLACK
+        # put hero as an attribute of the game
         self.hero = ImageObject(0, 0, Graph.heroSprite)
-    
+        self.stars = []
+        # put all objects that will be drawn on the screen in a list
+        self.objectsOnScreen = [self.hero]
+
 
     # updateGame() is called before each frame is displayed
     def updateGame(self):
-        # update the position of hero based on its velocity
-        self.hero.x += 1
-        self.hero.y += 1
+        # dectect collision of stars and hero using rectangle
+        for s in self.stars:
+            if hasCollideRect(self.hero, s):
+                self.stars.remove(s)
+                self.objectsOnScreen.remove(s)
+                
+
+    # an example of adding an object to the screen
+    def addAnRandomBall(self):
+        addedStar = ImageObject(random.randint(0, 500),random.randint(0, 500), Graph.someLoadedImage)
+        self.stars.append(addedStar)
+        self.objectsOnScreen.append(addedStar)
 
 
     # A method that does all the drawing for you.
     def draw(self, screen):
         # clear the screen, or set up the background, 
-        screen.fill(Graph.BLACK)
-        # copy the image of hero to the screen at the cordinate of hero
-        screen.blit(self.hero.img, (self.hero.x, self.hero.y))
+        screen.fill(self.background)
+
+        for obj in self.objectsOnScreen:
+            screen.blit(obj.img, (obj.x, obj.y))
 
 

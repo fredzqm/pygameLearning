@@ -1,4 +1,4 @@
-#-------------------------
+    #-------------------------
 # initialize pygame
 #-------------------------
 import pygame
@@ -24,6 +24,9 @@ from GameLogic import Game, Graph
 # acquire a game object
 game = Game()
 
+# Let "Normal" be the initial state
+state = "Normal"
+
 #-------------------------
 # Our Main Loop
 #-------------------------
@@ -41,15 +44,15 @@ while True:
             exit()
         # check for some key presses
         if event.type == pygame.KEYDOWN:
-            # move the hero
+            # control the hero velocity
             if event.key == pygame.K_UP:
-                game.hero.y -= 10
+                game.hero.vy -= 0.5
             elif event.key == pygame.K_DOWN:
-                game.hero.y += 10
+                game.hero.vy += 0.5
             elif event.key == pygame.K_LEFT:
-                game.hero.x -= 10
+                game.hero.vx -= 0.5
             elif event.key == pygame.K_RIGHT:
-                game.hero.x += 10
+                game.hero.vx += 0.5
             # change the background color
             elif event.key == pygame.K_o:
                 game.background = Graph.ORANGE
@@ -58,13 +61,26 @@ while True:
             # add an random ball to the screen
             elif event.key == pygame.K_a:
                 game.addAnRandomBall()
-                
+            # reset the position or velocity of hero
+            elif event.key == pygame.K_p:
+                game.hero.x = 200
+                game.hero.y = 200
+            elif event.key == pygame.K_s:
+                game.hero.vx = 0
+                game.hero.vy = 0
+        # click on the screen to toggle state
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            x, y = event.pos
+            if game.state == "Normal":
+                game.state = "Pause"
+            else:
+                game.state = "Normal"
     #-------------------------
     # The main game logic block
     #-------------------------
-    ## all the exciting interactive of objects happen in updateGame()
+    # all the exciting interactive of objects happen in updateGame()
     game.updateGame()
-
+    
     #-------------------------
     # The graphics block
     #-------------------------

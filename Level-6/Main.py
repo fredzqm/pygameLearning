@@ -43,16 +43,16 @@ while True:
         if event.type == pygame.KEYDOWN:
             # in "Normal" state, control the hero velocity
             if event.key == pygame.K_UP:
-                if game.state == "Normal":
+                if game.inState("Normal"):
                     game.hero.vy -= 0.5
             elif event.key == pygame.K_DOWN:
-                if game.state == "Normal":
+                if game.inState("Normal"):
                     game.hero.vy += 0.5
             elif event.key == pygame.K_LEFT:
-                if game.state == "Normal":
+                if game.inState("Normal"):
                     game.hero.vx -= 0.5
             elif event.key == pygame.K_RIGHT:
-                if game.state == "Normal":
+                if game.inState("Normal"):
                     game.hero.vx += 0.5
             # change the background color
             elif event.key == pygame.K_o:
@@ -61,7 +61,7 @@ while True:
                 game.background = Graph.BLACK
             # in "Pause" state, add an random ball to the screen
             elif event.key == pygame.K_a:
-                if game.state == "Pause":
+                if game.inState("Pause"):
                     game.addAnRandomBall()
             # reset the position or velocity of hero
             elif event.key == pygame.K_p:
@@ -73,7 +73,7 @@ while True:
         # click on the screen to toggle state
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x, y = event.pos
-            if game.state == "Normal":
+            if game.inState("Normal"):
                 game.switchState("Pause")
             else:
                 game.switchState("Normal")
