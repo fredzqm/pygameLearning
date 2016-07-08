@@ -1,4 +1,4 @@
-get something moving on the screen
+Get something moving on the screen
 
 =================================================================================
 Lesson

@@ -1,4 +1,4 @@
-Use object-oriented programming
+Use object-oriented programming to manage objects on screen
 
 =================================================================================
 Lesson
