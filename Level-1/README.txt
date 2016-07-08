@@ -28,4 +28,5 @@ Lesson
 =================================================================================
 Challenge
 =================================================================================
-Make two cycles (like eyes) moving from up to down.
+1. Make two cycles (like eyes) move instead
+2. Change the directionto move up to down.

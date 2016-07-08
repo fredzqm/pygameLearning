@@ -1,6 +1,8 @@
 get something moving on the screen
-=================================================================================
 
+=================================================================================
+Lesson
+=================================================================================
 1. import global variables and global function from another file
 	There are essentially two way to import code from another file in the same directory
 		1. import as a whole module
@@ -9,7 +11,7 @@ get something moving on the screen
 
 2. separate program in multiple parts and files
 	In a team work, it is a very good practice to keep different part of your game in different file.
-	Our pygame program contains three part:
+	Our pygame program contains three parts:
 		Main.py (I/O)
 			It contains the big main loop, a very structured loop that is run for each frame
 			Besides what we have in the previous level, to make the interactive, it needs:
@@ -31,20 +33,10 @@ get something moving on the screen
 3. how to process user input
 	Pygame catpure all sort of actions of user as the form of events.
 	To make your game interactive, you should handle those events in an event loop:
-		1. aquire a list of events that pygame recieved												eventList = pygame.event.get()
-		2. write a for loop to process each of them													for event in eventList:
-			A reminder of for-loop syntax:													for anElementInList in ListIterateTrough
-			The variable "event" represent an element inside list "eventList" in each iteration
-			If len(eventList) represents the length of the list, the above code is equivalent to
-				event = eventList[0]
-				# Run code in the loop
-				event = eventList[1]
-				# Run code in the loop
-				# ...
-				# ...
-				event = eventList[len(eventList) - 1]
-				# Run code in the loop
-		3. when processing each event, check for its event type.									if event.type == pygame.QUIT:
+		1. Aquire a list of events that pygame recieved												eventList = pygame.event.get()
+		2. Write a for loop to process each of them													for event in eventList:
+			The variable "event" represent an event instance stored in list "eventList" in each iteration
+		3. When processing each event, check for its event type.
 			All the events have an attribute called "type", which matches one of pygame event types
 				You can look up all the event types on http://www.pygame.org/docs/ref/event.html
 						QUIT             none
@@ -62,6 +54,17 @@ get something moving on the screen
 						VIDEORESIZE      size, w, h
 						VIDEOEXPOSE      none
 						USEREVENT        code
-			The first row shows the name of event type. Each of them corresponds to an constant pygame.<EventTypeName>
+			The first row shows the name of event type.
+			The second row shows what extra attribute this event contains.
+				If you are not sure what those properties actually mean, print them out and experiment with it
+			
+			Both KEYDOWN and KEYUP has attribute called key, which encodes a key on your keyboard.
+				You can look them up on http://www.pygame.org/docs/ref/key.html
 			
 
+=================================================================================
+Challenge
+=================================================================================
+1. Create a circle around your mouse.
+2. Right click makes it larger, and left click makes it smaller.
+3. print out some message like ""

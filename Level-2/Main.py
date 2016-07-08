@@ -26,16 +26,20 @@ while True:
     eventList = pygame.event.get()
     # grab all events pygame recieved
     for event in eventList:
+        print(event)
         if event.type == pygame.QUIT:
             # if someone tries to close the Windows
             exit()
         # check for some key presses
         if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                print("Space pressed!")
             print("Button " + str(event.key) + " pressed!")
-        elif event.type == pygame.KEYUP:
-            print("Button " + str(event.key) + " released!")
         elif event.type == pygame.MOUSEBUTTONDOWN:
-        	print("Mouse clicked at " + str(event.pos))
+            x, y = event.pos
+            # grab the position coordinate of the mouse
+            print("Mouse clicked at " + str(event.pos))
+
     #-------------------------
     # The main game logic block
     #-------------------------

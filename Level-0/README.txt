@@ -27,4 +27,4 @@ pygame.display.flip()
 =================================================================================
 Challenge
 =================================================================================
-Try to draw an BLUE rectangle at coordinate (100, 200)
+1. Try to draw an BLUE rectangle at coordinate (100, 200)
