@@ -3,13 +3,13 @@ get something moving on the screen
 =================================================================================
 Lesson
 =================================================================================
-1. import global variables and global function from another file
+1. Import global variables and global function from another file
 	There are essentially two way to import code from another file in the same directory
 		1. import as a whole module
 		2. import specific global variable or function directly
 	Check them out in the importExample foler
 
-2. separate program in multiple parts and files
+2. Separate program in multiple parts and files
 	In a team work, it is a very good practice to keep different part of your game in different file.
 	Our pygame program contains three parts:
 		Main.py (I/O)
@@ -30,7 +30,7 @@ Lesson
 			All the pre-drawn surfaces of sprites should be here.
 			GameLogic can then import these sprites for draw(screen)
 
-3. how to process user input
+3. How to process user input
 	Pygame catpure all sort of actions of user as the form of events.
 	To make your game interactive, you should handle those events in an event loop:
 		1. Aquire a list of events that pygame recieved												eventList = pygame.event.get()
@@ -67,4 +67,4 @@ Challenge
 =================================================================================
 1. Create a circle around your mouse.
 2. Right click makes it larger, and left click makes it smaller.
-3. print out some message like ""
+3. Print out some message like "Game ending ..." when you quit the game
