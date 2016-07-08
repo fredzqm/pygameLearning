@@ -2,19 +2,10 @@ get something moving on the screen
 =================================================================================
 
 1. import global variables and global function from another file
-	There are essentially two way to import code from a file called "module1.py" in the same directory
-		import as a whole module. You can use as to specify a different name for the module
-		later on, you need to prefix that name for each access of global variables or functions
-			import module1 as mod1
-			print(mod1.global_variable_in_module1)
-			mod1.global_function_in_module1(...)
-
-		import specific global variable or function directly. No need for prefix
-		from module1 import *   is equivalent to copying "module.py" file over
-			from module1 import global_variable_in_module1, global_function_in_module1
-			print(global_variable_in_module1)
-			global_function_in_module1(...)
-
+	There are essentially two way to import code from another file in the same directory
+		1. import as a whole module
+		2. import specific global variable or function directly
+	Check them out in the importExample foler
 
 2. separate program in multiple parts and files
 	In a team work, it is a very good practice to keep different part of your game in different file.

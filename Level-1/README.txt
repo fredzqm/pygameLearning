@@ -22,4 +22,10 @@ Lesson
 		1. clear the screen or set up the background		screen.fill(BACKGROUND_COLOR)
 		2. copy prepared sprites onto the screen 			screen.blit(surface, (x, y))
 		3. ask pygame to display the screen 				pygame.display.flip()
-		4. wait for a interval until the next frame 		pygame.time.wait(interval_in_milleseconds)
+		4. wait for a interval to reach a framerate 		clock.tick(FRAME_RATE)
+
+
+=================================================================================
+Challenge
+=================================================================================
+Make two cycles (like eyes) moving from up to down.
