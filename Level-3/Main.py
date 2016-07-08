@@ -58,7 +58,10 @@ while True:
             # add an random ball to the screen
             elif event.key == pygame.K_a:
                 game.addAnRandomBall()
-                
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            # move the hero to where mouse clicked
+            game.hero.x, game.hero.y = event.pos
+
     #-------------------------
     # The main game logic block
     #-------------------------
