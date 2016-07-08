@@ -16,7 +16,7 @@ screen = pygame.display.set_mode((500, 500))
 # define color, an tuple of 3 number representing (Red, Green, Blue)
 WHITE = (255, 255, 255)
 # pygame.draw.method(...) has many functions to draw on a screen
-# pygame.draw.circle(surfaceToBeDrawnOn, color, centerCordinate, radius)
+# pygame.draw.circle(surfaceToBeDrawnOn, color, centerCoordinate, radius)
 pygame.draw.circle(screen, WHITE, (20, 20), 20)
 
 # ask pygame to display screen on the GUI

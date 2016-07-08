@@ -10,22 +10,23 @@ class ImageObject:
         self.y = y
         self.img = img
 
+    # the method that should update the status of game depending on the game.
+    # Its subclass should overrides it
+    def update(self, game):
+        pass
+
 # a great example of an object that can move on the screen
-class Hero:
+# Hero is a subclass of ImageObject so it has l
+class Hero(ImageObject):
     def __init__(self):
-        # -- ----------------------
-        # [REQUIRED PART] for any class that will be drawn on the screen
-        # Grab the surface that Graphics people worked very hard on
-        self.img = GLib.heroSprite
-        # Set the initial coordinate of this object
-        self.x = 0
-        self.y = 0
+        # call the initializer of its super class
+        super().__init__(0, 0, GLib.heroSprite)
         # ------------------------
         self.vx = 0
         self.vy = 0
 
-    # update the position of hero based on its speed
-    def update(self):
+    # this method overrides the 
+    def update(self, game):
         self.x += self.vx
         self.y += self.vy
         bounceIn(self, 0, 0, 500, 500)
@@ -76,7 +77,6 @@ class Game:
                 if hasCollideRect(self.hero, s):
                     self.stars.remove(s)
             # showAnimationOn() takes three argument, the object, the animation, and the frameNumber
-            # the animation should be a list of surface representing each frame
             # it returns whether a complete animation is shown
             if showAnimationOn(self.ball, GLib.shiningAnimation, self.stateTime):
                 self.switchState("Pause")
@@ -113,7 +113,19 @@ class Game:
         addedStar = Star(random.randint(0, 500),random.randint(0, 500), self.time)
         self.stars.append(addedStar)
 
-    # A method that does all the drawing for you.
+
+    # a magic that update all elements on the screen for you
+    # However, all methods need to implement obj.update(game)
+    def upate(self):
+        def updateObj(objls):
+            for obj in objls:
+                if type(obj) is list:
+                    updateObj(obj)
+                else:
+                    obj.update(game)
+        updateObj(self.objectsOnScreen)
+
+    # A method that does all the drawing for you
     def draw(self, screen):
         # set the background of the game
         if type(self.background) is tuple:
@@ -128,6 +140,6 @@ class Game:
                     drawOnScreen(obj)
                 else:
                     screen.blit(obj.img, (obj.x, obj.y))
-        drawOnScreen(self.objectsOnScreen)     
+        drawOnScreen(self.objectsOnScreen)
 
 
