@@ -8,6 +8,7 @@ img = Graph.heroSprite
 
 # update the game
 def updateGame():
+	# if you want to assign a global variable in Python, you need to let Python know
     global x, y
     x += 1
     y += 1

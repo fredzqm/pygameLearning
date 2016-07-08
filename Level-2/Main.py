@@ -12,6 +12,10 @@ clock = pygame.time.Clock()
 # create a screen of 500 * 500
 screen = pygame.display.set_mode((500, 500))
 
+# <<ADVANCED>> If you want KEYDOWN event to fire continuously, when a key is held down
+# ============ give it two argument, both of them are interval of KEYDOWN event
+pygame.key.set_repeat(50, 50)
+
 import GameLogic
 
 #-------------------------
@@ -26,19 +30,30 @@ while True:
     eventList = pygame.event.get()
     # grab all events pygame recieved
     for event in eventList:
+        # Just for this level, print the event out, so you can experiment with it
         print(event)
+        # <event.type> type attribute of an event encodes the type of the event
         if event.type == pygame.QUIT:
             # if someone tries to close the Windows
             exit()
-        # check for some key presses
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                print("Space pressed!")
-            print("Button " + str(event.key) + " pressed!")
+        elif event.type == pygame.KEYDOWN:
+            # if someone presses some key
+            # <event.key> key attribute of a key-down event encodes which key is pressed
+            # move the hero accordingly
+            if event.key == pygame.K_UP:
+                GameLogic.y -= 10
+            elif event.key == pygame.K_DOWN:
+                GameLogic.y += 10
+            elif event.key == pygame.K_LEFT:
+                GameLogic.x -= 10
+            elif event.key == pygame.K_RIGHT:
+                GameLogic.x += 10
         elif event.type == pygame.MOUSEBUTTONDOWN:
+            # <event.pos> pos attribute of a mouse-button-down event encodes where the mouse clicks
             x, y = event.pos
-            # grab the position coordinate of the mouse
-            print("Mouse clicked at " + str(event.pos))
+            # move the hero to this position
+            GameLogic.x = x
+            GameLogic.y = y
 
     #-------------------------
     # The main game logic block
