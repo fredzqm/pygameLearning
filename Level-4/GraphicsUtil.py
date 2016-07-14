@@ -35,3 +35,5 @@ ballSpriteBLUE.set_colorkey(BLACK)
 
 # a simple animation of only three frame
 animation = [someLoadedImage, ballSpriteBLUE, ballSpriteOrange]
+
+

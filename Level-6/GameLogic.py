@@ -32,18 +32,28 @@ class Hero(ImageObject):
         bounceIn(self, 0, 0, 500, 500)
 
 # a greate example for an object that does animation
-class Star:
+class Star(ImageObject):
     def __init__(self, x, y, time):
-        self.x = x
-        self.y = y
+        super().__init__(x, y, Graph.shiningAnimation[0])
         self.birthTime = time
 
-    def update(self, time):
+    def update(self, game):
         self.x += 1
         self.y += 1
-        showAnimationOn(self, Graph.shiningAnimation, (time - self.birthTime) / 2)
+        # dectect collision of stars and hero using rectangle
+        if hasCollideRect(game.hero, self):
+            game.stars.remove(self)
+            return
+        showAnimationOn(self, Graph.shiningAnimation, (game.time - self.birthTime) / 2)
         wrapAroundIn(self, 20, 20, 480, 480)
 
+class Ball(ImageObject):
+    def __init__(self, x, y, img):
+        super().__init__(x, y, img)
+    
+    def update(self, game):
+        if showAnimationOn(self, Graph.shiningAnimation, game.stateTime / 5):
+            game.switchState("Pause")
 
 class Game:
     def __init__(self):
@@ -63,30 +73,6 @@ class Game:
         # put all objects that will be drawn on the screen in a list
         self.objectsOnScreen = [self.hero, self.ball]
 
-    # updateGame() is called before each frame is displayed
-    def updateGame(self):
-        # update both the time and state time
-        self.time += 1
-        self.stateTime += 1
-        # check what state the game is at
-        if self.state == "Normal":
-            # update the game before each frame of the state
-            self.hero.update()
-            # dectect collision of stars and hero using rectangle
-            for s in self.stars:
-                if hasCollideRect(self.hero, s):
-                    self.stars.remove(s)
-            # showAnimationOn() takes three argument, the object, the animation, and the frameNumber
-            # it returns whether a complete animation is shown
-            if showAnimationOn(self.ball, Graph.shiningAnimation, self.stateTime / 5):
-                self.switchState("Pause")
-        elif self.state == "Pause":
-            for s in self.stars:
-                s.update(self.time)
-            if self.stateTime > 200:
-                self.switchState("Normal")
-        else:
-            raise Exception("Undefined game state " + str(state))
 
     def switchState(self, newState):
         # configure the game when state swiched
@@ -102,28 +88,31 @@ class Game:
         self.state = newState
 
 
-    def inState(self, lookFor):
-        # sometimes you might have small states within big state like "Normal-A", "Normal-B"
-        # inState() makes it easier to add those substate later on without breaking previous features
-        return self.state.startswith(lookFor)
-
-
     # an example of adding an object to the screen
     def addAnRandomBall(self):
         addedStar = Star(random.randint(0, 500),random.randint(0, 500), self.time)
         self.stars.append(addedStar)
 
+    
+    # updateGame() is called before each frame is displayed
+    def updateGame(self):
+        # update both the time and state time
+        self.time += 1
+        self.stateTime += 1
+        # check what state the game is at
+        if self.state == "Pause" and self.stateTime > 200:
+            self.switchState("Normal")
 
-    # a magic that update all elements on the screen for you
-    # However, all methods need to implement obj.update(game)
-    def upate(self):
+        # a magic that update all elements on the screen for you
+        # However, all methods need to implement obj.update(game)
         def updateObj(objls):
             for obj in objls:
                 if type(obj) is list:
                     updateObj(obj)
                 else:
-                    obj.update(game)
+                    obj.update(self)
         updateObj(self.objectsOnScreen)
+
 
     # A method that does all the drawing for you
     def draw(self, screen):

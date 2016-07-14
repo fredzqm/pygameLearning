@@ -121,6 +121,6 @@ class Game:
                     drawOnScreen(obj)
                 else:
                     screen.blit(obj.img, (obj.x, obj.y))
-        drawOnScreen(self.objectsOnScreen)     
+        drawOnScreen(self.objectsOnScreen)
 
 
