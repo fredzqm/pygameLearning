@@ -42,6 +42,9 @@ Lesson
 =================================================================================
 Challenge
 =================================================================================
-1. make the randomly added balls move at some speed
+1. make the randomly added balls move at some speed (random or fixed are both ok)
 2. make those balls bounce at the border
 	Hint: there is a nice function in Util.py --- bounceIn(obj, x1, y1, x2, y2)
+3. when you click a star, it turns to another image.
+	Hint: run and loop to check all stars
+		set its img to a new surface loaded in GraphicsUtil

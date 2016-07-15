@@ -73,4 +73,3 @@ Challenge
 2. Use B to switch screen color to blue and use R to switch screen color to red
 	Hint: you can set GameLogic.img to a new surface.
 3. Print out some message like "Game ending ..." when you quit the game
-	Hint: The event is pygame.QUIT
