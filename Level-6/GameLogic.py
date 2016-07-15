@@ -15,21 +15,6 @@ class ImageObject:
     def update(self, game):
         pass
 
-# a great example of an object that can move on the screen
-# Hero is a subclass of ImageObject so it has l
-class Hero(ImageObject):
-    def __init__(self):
-        # call the initializer of its super class
-        super().__init__(0, 0, Graph.heroSprite)
-        # ------------------------
-        self.vx = 0
-        self.vy = 0
-
-    # this method overrides the 
-    def update(self, game):
-        self.x += self.vx
-        self.y += self.vy
-        bounceIn(self, 0, 0, 500, 500)
 
 # a greate example for an object that does animation
 class Star(ImageObject):
@@ -47,13 +32,39 @@ class Star(ImageObject):
         showAnimationOn(self, Graph.shiningAnimation, (game.time - self.birthTime) / 2)
         wrapAroundIn(self, 20, 20, 480, 480)
 
+
 class Ball(ImageObject):
-    def __init__(self, x, y, img):
-        super().__init__(x, y, img)
-    
     def update(self, game):
         if showAnimationOn(self, Graph.shiningAnimation, game.stateTime / 5):
             game.switchState("Pause")
+
+
+class MovingObject(ImageObject):
+    def __init__(self, x, y, img, vx, vy):
+        super().__init__(x, y, img)
+        self.vx = vx
+        self.vy = vy
+        
+# a great example of an object that can move on the screen
+# Hero is a subclass of ImageObject so it has l
+class Hero(MovingObject):
+    def __init__(self):
+        super().__init__(0, 0, Graph.heroSprite, 0, 0)
+
+    # this method overrides the 
+    def update(self, game):
+        self.x += self.vx
+        self.y += self.vy
+        bounceIn(self, 0, 0, 500, 500)
+
+class Bullet(MovingObject):
+    def __init__(self, x, y, img, vx, vy):
+        super().__init__(0, 0, Graph.heroSprite, 0, 0)
+
+
+
+
+        
 
 class Game:
     def __init__(self):
