@@ -71,4 +71,6 @@ Challenge
 =================================================================================
 1. Create a circle around your mouse.
 2. Right click makes it larger, and left click makes it smaller.
+	Hint: Do some experimenting to see what event.button represent
 3. Print out some message like "Game ending ..." when you quit the game
+	Hint: The event is pygame.QUIT
