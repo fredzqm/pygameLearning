@@ -47,4 +47,4 @@ Challenge
 	Hint: there is a nice function in Util.py --- bounceIn(obj, x1, y1, x2, y2)
 3. when you click a star, it turns to another image.
 	Hint: run and loop to check all stars
-		set its img to a new surface loaded in GraphicsUtil
+		  set its img to a new surface loaded in GraphicsUtil

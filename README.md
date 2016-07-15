@@ -5,13 +5,13 @@ I desgined a series of pygame templates for catapult students to learn gradually
 There are essentially six levels:
 
 Level0:
-  make something appear on the screen
+  Make something appear on the screen
   
 Level1:
-  make something move on the screen with a Main loop
+  Make something move on the screen with a Main loop
 
 Level2:
-  organize multiple files and event handling loop
+  Organize multiple files and event handling loop
 
 Level3:
   Use object-oriented programming to manage objects on screen
